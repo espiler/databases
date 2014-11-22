@@ -35,6 +35,10 @@ app.get('/', function(req, res) {
   res.send('Hello, world');
 });
 
+app.get('/classes/messages', function(req, result) {
+  db.retrieveMessages(result);
+});
+
 //POST requests
 app.post('/classes/users', function(req,res){
   // db.addUser();
@@ -42,8 +46,7 @@ app.post('/classes/users', function(req,res){
 });
 
 app.post('/classes/messages', function(req,res){
-  db.addMessage();
-  // db.findMessages(function(arg){console.log(arg)});
+  db.addMessage(req.body);
   res.send('hey messages!');
 });
 

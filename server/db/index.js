@@ -4,7 +4,6 @@ var mysql = require('mysql');
 // You will need to connect with the user "root", no password,
 // and to the database "chat".
 var connection = mysql.createConnection({
-  //host:
   user: 'root',
   password: '',
   database: 'chat'
@@ -12,29 +11,25 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
-exports.addMessage = function() {
+exports.addMessage = function(reqBody) {
 
-  var queryString = 'INSERT INTO messages (message, username, userID, room) values ("hello", "testUser", 1, "lobby")';
-
-  // var queryString = 'insert into messages';
-  // var post = {message: "hello1", username: "testUser", userID: 1, room: "lobby"};
-  connection.query(queryString, function(err, res) {
-    if (err) console.log(err)
-    else  console.log('success')
-    // res.send('success');
-    console.log('This ran once again');
+  var queryString = 'insert into messages set ?';
+  var post = {message: reqBody.message, username: reqBody.username, room: reqBody.roomname};
+  connection.query(queryString, post, function(err, res) {
+    if (err) { console.log(err); }
+    else  { console.log('success adding to database'); }
   });
 
-  connection.end();
+
+
 };
 
+exports.retrieveMessages = function(result) {
+  var queryString = 'SELECT * from messages';
+  connection.query(queryString, function(err, res) {
+    if (err) { console.log(err); }
+    else  { result.send(res) }
+  });
 
-// exports.findMessages = function(callback) {
-//   connection.query("SELECT message, username, room from messages", function(err, res){
-//     if (err) {callback("error!"); }
-//     else {
-//       callback(res);
-//     }
-//   });
-// };
+};
 

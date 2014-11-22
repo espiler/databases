@@ -4,19 +4,20 @@ USE chat;
 
 CREATE TABLE messages (
   /* Describe your table here.*/
+  messageID MEDIUMINT NOT NULL AUTO_INCREMENT,
   message varchar(140),
   username varchar(20),
-  userID int(6),
-  room varchar(20)
-  -- createdAt TIMESTAMP(6),
+  room varchar(20),
+  PRIMARY KEY (messageID),
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE users (
   /* Describe the uses table */
-  userID int(6),
-  username varchar(20)
+  userID MEDIUMINT NOT NULL AUTO_INCREMENT,
+  username varchar(20),
+  PRIMARY KEY (userID)
 );
-
 CREATE TABLE followings (
   /* Describe the relationship between users */
   primaryuserID int(6),
