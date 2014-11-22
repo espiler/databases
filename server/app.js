@@ -16,7 +16,7 @@ app.set("port", 3000);
 
 // Logging and parsing
 app.use(morgan('dev'));
-app.use(parser.json());
+app.use(parser.json( ));
 
 // Set up our routes
 app.use("/classes", router);
@@ -29,4 +29,43 @@ if (!module.parent) {
   app.listen(app.get("port"));
   console.log("Listening on", app.get("port"));
 }
+
+//GET requests
+app.get('/', function(req, res) {
+  res.send('Hello, world');
+});
+
+//POST requests
+app.post('/classes/users', function(req,res){
+  // db.addUser();
+  res.send('hey users!');
+});
+
+app.post('/classes/messages', function(req,res){
+  db.addMessage();
+  // db.findMessages(function(arg){console.log(arg)});
+  res.send('hey messages!');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
